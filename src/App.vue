@@ -1,19 +1,49 @@
+<!-- <template>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+    />
+
+  </head>
+  <Header />
+
+  <div class="container mt-5">
+    <router-view></router-view>
+  </div>
+
+  <Footer />
+</template> -->
+
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+
+  <div class="container mt-5">
+    <router-view></router-view>
+  </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/sections/Header.vue";
+import Footer from "./components/sections/Footer";
+import { setAuthToken } from "./services/AuthService.js";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    Footer,
+  },
+
+  mounted() {
+    const token = localStorage.getItem("token");
+
+    setAuthToken(token);
+  },
+};
 </script>
 
 <style>
@@ -25,4 +55,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+@import'~bootstrap/dist/css/bootstrap.css'
 </style>
