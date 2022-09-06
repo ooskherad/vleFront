@@ -8,7 +8,7 @@ export const setAuthToken = (token) => {
 
     localStorage.setItem("token", token);
 
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios.defaults.headers.common["Authorization"] = `Token ${token}`;
 
   } else {
 

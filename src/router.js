@@ -27,18 +27,30 @@ const isAuthenticated = (to, from, next) => {
   next();
 };
 
+const User = {
+  template: `
+    <div class="user">
+      <h2>User {{ $route.params.id }}</h2>
+      <router-view></router-view>
+    </div>
+  `
+}
+
+
+
 export default new Router ({
   mode: 'history',
   routes : [
-  { path: "/", name: "home", component: () => import("./views/Home.vue") },
+  { path: "/", name: "home", component: () => import("./views/useHome.vue") },
   {
     path: "/accounts",
     name: "accounts",
+    component:()  => import("./views/User/userView.vue"),
     children: [
       {
         path: "login",
         name: "login",
-        // component: () => import("./views/LoginPage.vue"),
+        component: () => import("./views/User/LoginPage.vue"),
         beforeEnter: isGuest,
       },
     ],
@@ -47,19 +59,25 @@ export default new Router ({
   {
     path: "/courses",
     name: "courses",
+    component:()  => import("./views/User/userView.vue"),
     children: [
       {
         path: "create_course",
         name: "create_course",
-        component: () => import("./views/CreateCourse.vue"),
+        component: () => import("./views/course/createCourse/CreateCourse.vue"),
         beforeEnter: isAuthenticated,
+      },
+      {
+        path: ":id",
+        name: "courseDetail",
+        component: () => import("./views/course/CoursePage.vue"),
+      },
+      {
+        path: ":id/:ssID",
+        name: "courseItems",
+        component: () => import("./views/course/CourseItems.vue"),
       },
     ],
   },
 ]});
-
-// const router = createRouter({
-//   // history: createWebHistory(),
-//   routes,
-// });
 
